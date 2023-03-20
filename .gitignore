@@ -1,0 +1,5 @@
+*.html
+*/libs/**
+/.quarto/
+*:Zone.Identifier
+*.jfif

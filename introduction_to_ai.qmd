@@ -1,0 +1,491 @@
+---
+title: "Introduction to AI"
+subtitle: "aka. Machine learning"
+author: "Povl Filip Sonne-Frederiksen"
+format:
+  revealjs:
+    logo: images/LINK_logo_Black.png
+
+    theme: 
+        - simple
+        - custom.scss
+
+---
+
+# Artificial Intelligence{background-color="black" background-image="/images/Metropolis-croped.jpg"}
+
+Artificial Inteligence is a from of Machien Learning.
+
+::: footer
+Metropolise (1927), Maschinenmensch
+:::
+
+
+## What is Machine Learning? {background-image="/images/Starwars C-3PO.png"}
+
+::: footer
+Starwars I Episode I, C-3PO 
+:::
+
+---
+
+In machine learning you encounter a lot of acronyms
+
+![Zoo of acronyms](/images/Acronym%20Zoo.png)
+
+---
+
+![Networks](/images/Network%20typology%20diagram.png)
+
+
+## Look under the hood {background-color="black" background-image="/images/Starwars C-3PO 3.webp"}
+
+::: footer
+Starwars Episode I, C-3PO
+:::
+
+---
+
+![Neuron](/images/Neuron.png)
+
+---
+
+So what is Machine learning then?
+It is "training" a fuction to output some specific values
+
+$$
+f(x) = y
+$$
+
+---
+
+Features = $x$
+
+Parameters = $\Theta$
+
+
+$$
+h_\theta (x) = \theta_0 x_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 +  ...\theta_n x_n \\ h_\theta (x) = \theta^T x
+$$
+
+
+
+
+---
+
+## So how does learning work {background-color="black" background-image="/images/Chappie 4.jpg"}
+
+::: footer
+Chappie (2015), Chappie
+:::
+
+::: {.notes}
+So how does the learning part work.
+:::
+
+<!-- ---
+
+There are three steps
+
+- Forward pass
+- Evaluation
+- Backpropagation -->
+
+---
+
+## Gradient Decent
+
+![Gradient decent](/images/Optimisation.png)
+
+
+## Loss Landscape
+![Visualisation of a loss landscape](/images/Visualizing%20the%20Loss%20Landscape%20of%20Neural%20Nets.png)
+
+
+# ChatGPT {background-color="black" background-image="/images/Archive 2020 -1 cropped.jpg"}
+
+General Pretrained Transformer (GPT) 
+
+
+::: footer
+Archive 2020, George Almore & J3
+:::
+
+## Tokens
+
+[![](/images/Tokenizer.png)](https://platform.openai.com/tokenizer)
+<!-- Tokenizer at https://platform.openai.com/tokenizer -->
+
+---
+
+![](/images/Tokenizer-ids.png)
+
+---
+
+## Latent Space {background-color="black" background-image="/images/Ghost-in-the-Shell-Trailer-Monks.jpg"}
+
+::: footer
+Ghost in the Shell (2017), Monks
+:::
+
+
+---
+
+![](/images/Auto%20Encoder.png)
+
+# Stable Diffusion{background-image="/images/Westworld 5.jpg" background-color="black"}
+
+::: footer
+Westworld (2016-2022), Intro
+:::
+
+## {background-image="/images/image-46-58.jpg" background-color="black"}
+
+Prompt:
+
+::: {style="color:black; background-color:rgba(255,255,255, 0.5);font-size: 20px; border-radius:25px; padding:25px"}
+
+Residential home high end futuristic interior, olson kundig::1 Interior Design by Dorothy Draper, maison de verre, axel vervoordt::2 award winning photography of an indoor-outdoor living library space, minimalist modern designs::1 high end indoor/outdoor residential living space, rendered in vray, rendered in octane, rendered in unreal engine, architectural photography, photorealism, featured in dezeen, cristobal palma::2.5 chaparral landscape outside, black surfaces/textures for furnishings in outdoor space::1 –q 2 –ar 4:7
+
+:::
+
+---
+
+Stable Diffusion Flow 
+
+```{dot}
+digraph  G { 
+    /* set direction of graph to be left-->right */
+    rankdir=LR;
+    rank=same;
+    node [shape=box];
+    /* make boxes instead of ellipses */
+    /* should enforce nodes to be horizontally aligned */
+    /* is not working, though... */
+    compound=true
+
+    /* assign labels to nodes */
+    A [ label="", width=1, height=1,];
+    B [ label="", width=1, height=1,];
+    C [ label="", width=1, height=1,];
+    D [ label="", width=1, height=1,];
+    E [ label="", width=1, height=1,];
+
+    subgraph cluster_A {
+        label="t=0"
+        A
+    }
+
+    subgraph cluster_B {
+        label="t=1"
+        B
+    }
+
+    subgraph cluster_C {
+        rank=same
+        label="t=2"
+        C
+    }
+
+    subgraph cluster_D {
+      label="t= ..."
+      D
+    }
+
+    subgraph cluster_E {
+      label="t=n"
+      E
+    }
+
+    A -> B [label="noise", ltail=cluster_A, lhead=cluster_B];
+    B -> C [label="noise", ltail=cluster_B, lhead=cluster_C];
+    C -> D [label="noise", ltail=cluster_C, lhead=cluster_D];
+    D -> E [label="noise", ltail=cluster_D, lhead=cluster_E];
+
+    E:s -> D:s [label="sharpen", ltail=cluster_E, lhead=cluster_D];
+    D:s -> C:s [label="sharpen", ltail=cluster_D, lhead=cluster_C];
+    C:s -> B:s [label="sharpen", ltail=cluster_C, lhead=cluster_B];
+    B:s -> A:s [label="sharpen", ltail=cluster_B, lhead=cluster_A];
+
+    // Force pattern
+    A -> B [label="noise", ltail=cluster_A, lhead=cluster_B, style=invis];
+    B -> C [label="noise", ltail=cluster_B, lhead=cluster_C, style=invis];
+    C -> D [label="noise", ltail=cluster_C, lhead=cluster_D, style=invis];
+    D -> E [label="noise", ltail=cluster_D, lhead=cluster_E, style=invis];
+ } 
+```
+
+
+
+# Applications in Practice{background-image="/images/Finch 2021.jpg" background-color="black"}
+
+::: footer
+Finch (2021), Finch Weinberg & Dewey
+:::
+
+
+## Render from Rhino{background-image="/images/Ex Machina 5.jpg"}
+[Mikkel Steenberg](https://www.linkedin.com/in/mikkelsteenberg/recent-activity/shares/)
+
+::: footer
+Ex Machina (2014), Ava
+:::
+
+---
+
+![Screen shot from Rhino](/images/Copenhagen%20Rhino%20View.jpg)
+
+---
+
+![Street in Copenhagen](/images/Copenhagen%20Street.jpg)
+
+---
+
+![Flooded with water](/images/Copenhagen%20Flooded.jpg)
+
+---
+
+![Walking Street](/images/Copenhagen%20Walking%20Street.jpg)
+
+## Hypar{background-image="/images/Invasion 2020  backdrop-1920.jpg" background-color="black"}
+
+::: footer
+Invasion (2020), Julia
+:::
+
+---
+
+![](/images/Hypar.png)
+
+
+
+## InFraReD{background-image="/images/blade-runner-2049-2017-lu.jpg"}
+
+Intelligent Framework for Resilient Design
+[](infrared.city)
+
+::: footer
+Blade Runner (2049), 'K'
+:::
+
+---
+
+## Monolith AI{background-image="/images/BladeRunner2049-11.jpg" background-color="black"}
+
+[Monolith AI](https://www.monolithai.com)
+
+::: footer
+Blade Runner (2049), 'K' & Rachael
+:::
+
+
+# My PhD {background-image="/images/War-Games-Movie-Poster-James-White-Regular-1-cropped.jpg" background-color="black"}
+
+::: footer
+WarGames (1983), David
+:::
+
+---
+
+Started : 01.12.2021
+
+The PhD is a collaboration between:
+
+::: {style="font-size:30px"}
+* LINK Arkitektur A/S
+* Aahus School of Architecture
+* Multiconsult ASA \
+LINK’s parent company and Norwegian engineering consortium.
+* Alexandra Institute A/S \
+Consultancy with a focus on helping industry adopt the newest IT standards.
+* Freja Ejendomme A/S \
+State owned realtor which has access to interesting properties worth exploring.
+:::
+
+## Modulsystemer i Bygningskulturarven {auto-animate=true}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](/images/Modulsystemer-i-bygningskulturarven.png)
+:::
+
+::: {.column width="60%" style="font-size:30px"}
+Research project form 2020 at the Aarhus School of Architecture.
+Involving the development of a modular system and a strategy for how to approach the transformation of this building.
+
+ - Anne Mette Boye
+ - Charlotte Bundgaard
+ - Jan Buthke
+ - Niels Martin Larsen
+ - Simon Ostenfeld Pedersen
+:::
+
+::::
+
+---
+
+![Point cloud scan of Fabers Fabrikker](/images/3DScan_1.jpg)
+
+---
+
+Geometry extraction from point cloud
+
+:::: {.columns style="display: flex;" }
+
+::: {.column width="40%" style="font-size:15px" }
+![](/images/Modulsystemer-i-bygningskulturarven_Rapport-20201220-screen_Page_45.jpg)
+<!-- <img src="/images/Modulsystemer-i-bygningskulturarven_Rapport-20201220-screen_Page_45.jpg" /> -->
+
+:::
+
+::: {.column width="60%"}
+![](/images/Modulsystemer-i-bygningskulturarven_Rapport-20201220-screen_Page_29-cropped.jpg)
+<!-- <img src="/images/Modulsystemer-i-bygningskulturarven_Rapport-20201220-screen_Page_29-cropped.jpg"/> -->
+
+:::
+
+:::
+
+---
+
+House in house concept
+
+:::: {.columns style="display: flex;" }
+
+::: {.column width="40%" style="font-size:15px" }
+
+<img height=250px src="/images/Traditionel Ombyginig i Faaborg-Midtfyn Kommune.png" />
+<p>Tradition reconstruction in Faaborg-Midtfyn Konnune</p>
+
+<img height=250px src="/images/Ombygning efter Hus i Hus Konceptet.png"/>
+<p>Transformation based on the house in house concept</p>
+
+:::
+
+::: {.column width="60%"}
+<img src="/images/Modulsystemer-i-bygningskulturarven_Rapport-20201220-screen_Page_49.jpg"/>
+
+:::
+
+:::
+
+
+---
+
+Result
+
+:::: {.columns  style="display: flex;"}
+
+::: {.column width="50%" style="height: 600px; background: url(/images/01-38749b736fc34f9a.jpg) no-repeat center center;background-size:cover; margin: 0 auto; margin-right: 5px;"}
+:::
+
+
+::: {.column width="50%" style="height: 600px; background: url(/images/12-86b55fddbc997e10.jpg) no-repeat center center;background-size:cover; margin: 0 auto; margin-left: 5px;"}
+:::
+
+::::
+
+---
+
+<!-- <img src="/images/IMG_5895.jpg" width="100" height="100" /> -->
+
+![The project won the renovation price in 2022
+](/images/IMG_5895.jpg)
+
+## ME
+
+## {background-image="/images/Interior_pre_renovation.jpg" background-color="black"}
+
+## {background-image="/images/Interior_post_renovation.jpg" background-color="black"}
+
+---
+
+![Circular economy](/images/Circular%20Economy%20Flow.png)
+
+---
+
+
+Hypothesis
+
+:::: {.columns}
+
+::: {.column width="15%" }
+
+<img src="/images/Shape_Complexity.png" height="80" />
+<img src="/images/Shape_Time.png" height="80" />
+<img src="/images/Shape_Cost.png" height="80" />
+<img src="/images/Shape_History.png" height="80" />
+<img src="/images/Shape_Know-How.png" height="80" />
+
+<!-- ![](/images/Shape_Complexity.png)
+![](/images/Shape_Time.png)
+![](/images/Shape_Cost.png)
+![](/images/Shape_History.png)
+![](/images/Shape_Know-How.png) -->
+
+
+:::
+
+::: {.column width="85%" }
+* High complexity in construction
+* Complex planning and longer times
+* Increased cost
+* Historical value not quantifiable
+* Practical and technological know- how
+
+:::
+
+:::
+
+---
+
+![](/images/Process%20Now.png)
+
+---
+
+![](/images/Prosess.png)
+
+---
+
+![](/images/Understanding%20Point%20Clouds.png)
+
+---
+
+![](/images/Structured%20Communication%20and%20Data%20(2).png)
+
+---
+
+![](/images/Unstructured%20Communication%20and%20Data%20(2).png)
+
+---
+
+![](/images/Point%20Cloud%20Model.png)
+
+---
+
+![](/images/Viewer.png)
+
+---
+
+![](/images/Viewer%20with%20menu.png)
+
+
+---
+
+![](/images/Overview.png)
+
+---
+
+![](/images/Daylight%20Report.png)
+
+---
+
+![](/images/Climate%20Report.png)
+
+---
+
+![](/images/Historical%20Report.png)
+
+
+

@@ -1,0 +1,21 @@
+project:
+  title: "Introduction to AI"
+  
+
+toc: true
+toc-depth: 1
+
+number-sections: false
+#bibliography: references.bib
+  
+format:
+  revealjs: 
+    menu: false
+    progress: false
+  html:
+    css: styles.css
+    html-math-method: katex
+  pdf:
+    documentclass: report
+    margin-left: 30mm
+    margin-right: 30mm

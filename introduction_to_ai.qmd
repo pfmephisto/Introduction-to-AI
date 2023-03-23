@@ -35,7 +35,7 @@ In machine learning you encounter a lot of acronyms
 
 ---
 
-![Networks](/images/Network%20typology%20diagram.png)
+![Neural Networks](/images/Network%20typology%20diagram.png)
 
 
 ## Look under the hood {background-color="black" background-image="/images/Starwars C-3PO 3.webp"}
@@ -46,34 +46,38 @@ Starwars Episode I, C-3PO
 
 ---
 
-![Neuron](/images/Neuron.png)
+![Neuron vs. Node](/images/Neuron.png)
 
 ---
 
 So what is Machine learning then?
+
 It is "training" a fuction to output some specific values
 
 $$
 f(x) = y
 $$
 
----
+Or specifically:
 
-Features = $x$
+$$
+h_\theta (x) = \theta_0 x_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 +  ...\theta_n x_n 
+$$
+$$
+h_\theta (x) = \theta^T x
+$$
+
+::: aside
+Features = $x$ 
 
 Parameters = $\Theta$
-
-
-$$
-h_\theta (x) = \theta_0 x_0 + \theta_1 x_1 + \theta_2 x_2 + \theta_3 x_3 +  ...\theta_n x_n \\ h_\theta (x) = \theta^T x
-$$
-
-
+:::
 
 
 ---
 
 ## So how does learning work {background-color="black" background-image="/images/Chappie 4.jpg"}
+What is training and how does it learn
 
 ::: footer
 Chappie (2015), Chappie
@@ -83,13 +87,181 @@ Chappie (2015), Chappie
 So how does the learning part work.
 :::
 
-<!-- ---
+---
 
-There are three steps
+First we need some training data.
+That is data for which we have both the input as well as the result.
 
-- Forward pass
-- Evaluation
-- Backpropagation -->
+| x | y |
+|:-:|:-:|
+| 1 | 2 |
+| 2 | 4 |
+| 3 | 5 |
+| 4 | 4 |
+| 5 | 5 |
+
+---
+
+We then input a value into our fucntion.
+
+And get a random result
+
+> $x = 1$
+> $f(1) = 10$
+
+That result we now compart to our correct value.
+
+> $y = 2$
+> 
+> $(10-2)^2 = 64$  ^[Mean Squared Error (MSE)]
+
+---
+
+That gives us a value for how well our model performs.
+
+> $loss = 64$ _(Not that great)_ 
+
+---
+
+Net we adjust some values in our model an repeat the process ($loss$).
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+np.random.seed(43)
+
+# Define the dataset
+X = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 5, 4, 5])
+
+# Define the model
+def linear_regression(X, theta):
+    return theta[0] + theta[1]*X
+
+# Define the loss function
+def mse(y_true, y_pred):
+    return np.mean((y_true - y_pred)**2)
+
+# Initialize the parameters
+theta = np.random.randn(2)
+
+# Set the learning rate
+learning_rate = 0.01
+
+
+fig, axs = plt.subplots(4, 4)
+fig.tight_layout()
+
+def ax_gettter():
+  for list in axs:
+    for item in list:
+      yield item
+
+get_ax = ax_gettter()
+
+
+losses = []
+thetas = []
+
+# Train the model
+for i in range(48):
+    # Make a prediction
+    y_pred = linear_regression(X, theta)
+    
+    # Calculate the loss
+    loss = mse(y, y_pred)
+    losses.append(loss)
+    
+    # Calculate the gradients
+    d_theta = np.array([np.mean(y_pred - y), np.mean((y_pred - y)*X)])
+    
+    # Update the parameters
+    theta = theta - learning_rate*d_theta
+    thetas.append(theta)
+    
+    if i%3 == 0:
+      # Plot the data and the current line of best fit
+      ax = next(get_ax)
+
+      ax.scatter(X, y)
+      ax.plot(X, linear_regression(X, theta), color='r')
+      ax.set_title(f'Iteration {i+1}, Loss: {loss:.2f}')
+
+      ax.set_xlim((0,6))
+      ax.set_ylim((-2,6))
+
+      # ax.set_xticks([])
+      # ax.set_yticks([])
+
+plt.show()
+
+```
+
+---
+Loss over time
+
+```{python}
+plt.plot(losses, range(len(losses)))
+plt.show()
+```
+
+---
+
+## Simplified
+
+So for the fucntion
+
+$f(x) = y$
+
+| x | y |
+|:-:|:-:|
+| 2 | 16|
+| 3 | 24|
+
+$f(x) = p*x$
+
+What is $p$ ?
+
+---
+
+## Loss over $p$
+
+```{python}
+
+def func(x=2, p=8):
+  return p*x
+
+ps = np.arange(0,16,0.5)
+erros = [ mse(func(p=8), func(p=p) ) for p in ps ]
+
+plt.plot(ps, erros, color='r')
+
+ps = [15,13,11.8,10,9.2,8.5,8]
+erros = [mse(func(), func(p=p)) for p in ps]
+
+plt.plot(ps, erros , color='b')
+plt.scatter(ps, erros, color='b')
+
+# for i in range(len(ps)-1):
+#   x = ps[i]
+#   y = erros[i]
+
+#   dx = ps[i + 1] - x
+#   dy = erros[i + 1] -y
+
+#   # l = np.sqrt(np.sum([np.square(dx), np.square(dy)]))
+
+#   # f = 10
+#   # dx = (dx / l) * f
+#   # dy = (dy / l) * f
+
+#   plt.arrow( x, y, dx, dy, head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+plt.show()
+
+```
+
+$p = 8$
 
 ---
 
@@ -102,13 +274,20 @@ There are three steps
 ![Visualisation of a loss landscape](/images/Visualizing%20the%20Loss%20Landscape%20of%20Neural%20Nets.png)
 
 
+## Exahution{background-image="/images/Ex Machina 4.jpg" background-color="black"}
+
+::: footer
+Ex Machina (2014), Ava
+:::
+
+
 # ChatGPT {background-color="black" background-image="/images/Archive 2020 -1 cropped.jpg"}
 
 General Pretrained Transformer (GPT) 
 
 
 ::: footer
-Archive 2020, George Almore & J3
+Archive (2020), George Almore & J3
 :::
 
 ## Tokens
@@ -122,16 +301,95 @@ Archive 2020, George Almore & J3
 
 ---
 
-## Latent Space {background-color="black" background-image="/images/Ghost-in-the-Shell-Trailer-Monks.jpg"}
+## Latent Space / Embedding {background-color="black" background-image="/images/Ghost-in-the-Shell-Trailer-Monks.jpg"}
 
 ::: footer
 Ghost in the Shell (2017), Monks
 :::
 
+## {background-iframe="http://projector.tensorflow.org/"}
 
+::: footer
+http://projector.tensorflow.org/
+:::
 ---
 
-![](/images/Auto%20Encoder.png)
+```{python}
+import matplotlib.pyplot as plt
+
+# Set points 
+plt.scatter([2, 5],[5, 4], c="b")
+plt.scatter([1, 4],[3, 2], c="r")
+
+# Set Text labeles
+plt.text(2.2,5, "Man")
+plt.text(5.2,4, "Woman")
+plt.text(1.2,3, "King")
+plt.text(4.2,2, "Queen")
+
+# Draw arrows
+plt.arrow(2,5, 3, -1)
+plt.arrow(1,3, 3, -1)
+
+# Set dimentions
+plt.xlim((0,6))
+plt.ylim((0,6))
+
+# Remove scale ticks
+plt.xticks([])
+plt.yticks([])
+
+plt.show()
+```
+
+---
+Crown + Person => King
+
+```{python}
+import matplotlib.pyplot as plt
+
+person = (2,1)
+crown = (2.5,4)
+
+king = (person[0] + crown[0], person[1] + crown[1])
+
+# Set points 
+plt.scatter([person[0], crown[0]], [person[1], crown[1]], c="b")
+plt.scatter(king[0], king[1], c="r")
+
+# Set Text labeles
+plt.text(person[0]+0.2,person[1], "Person")
+plt.text(crown[0]+0.2,crown[1], "Crown")
+plt.text(king[0]+0.2, king[1], "King")
+
+
+# Draw arrows
+plt.arrow(0,0, person[0], person[1], color="b")
+plt.arrow(0,0, crown[0], crown[1], color="b")
+
+plt.arrow(crown[0], crown[1], person[0], person[1], color="r")
+
+# Set dimentions
+plt.xlim((0,6))
+plt.ylim((0,6))
+
+# Remove scale ticks
+plt.xticks([])
+plt.yticks([])
+
+plt.show()
+```
+
+## Transformers {background-image="/images/Terminator 2.jpg" background-color="black"}
+Attention is all you need
+
+::: footer
+Terminator
+:::
+---
+
+![](/images/Attention-weights-are-visualized-on-two-sentences-by-PSRTN_W640.jpg)
+
 
 # Stable Diffusion{background-image="/images/Westworld 5.jpg" background-color="black"}
 
@@ -215,7 +473,9 @@ digraph  G {
  } 
 ```
 
+---
 
+![](/images/Auto%20Encoder.png)
 
 # Applications in Practice{background-image="/images/Finch 2021.jpg" background-color="black"}
 
@@ -270,7 +530,7 @@ Blade Runner (2049), 'K'
 
 ---
 
-## Monolith AI{background-image="/images/BladeRunner2049-11.jpg" background-color="black"}
+## Monolith AI{ visibility="uncounted" background-image="/images/BladeRunner2049-11.jpg" background-color="black"}
 
 [Monolith AI](https://www.monolithai.com)
 
@@ -280,6 +540,8 @@ Blade Runner (2049), 'K' & Rachael
 
 
 # My PhD {background-image="/images/War-Games-Movie-Poster-James-White-Regular-1-cropped.jpg" background-color="black"}
+Promoting the reuse of vacant buildings \
+using machine learing
 
 ::: footer
 WarGames (1983), David
@@ -393,7 +655,11 @@ Result
 ![The project won the renovation price in 2022
 ](/images/IMG_5895.jpg)
 
-## ME
+## But what about me? {background-image="/images/finch3.jpg" background-color="black"}
+
+::: footer
+Finch (2021), Finch Weinberg & Dewey
+:::
 
 ## {background-image="/images/Interior_pre_renovation.jpg" background-color="black"}
 
@@ -403,10 +669,8 @@ Result
 
 ![Circular economy](/images/Circular%20Economy%20Flow.png)
 
----
 
-
-Hypothesis
+## Hypothesis
 
 :::: {.columns}
 
@@ -440,52 +704,87 @@ Hypothesis
 
 ---
 
+![](/images/Point%20Cloud%20Model.png)
+
+## Process now
+
 ![](/images/Process%20Now.png)
 
----
+## Process vision
 
 ![](/images/Prosess.png)
 
----
+## Challanges
 
 ![](/images/Understanding%20Point%20Clouds.png)
 
----
+## Example
+
+![](/images/Segmented%20point%20cloud%20top%20view.png)
+
+## Example
+
+:::: {.columns style="display: flex;" }
+
+::: {.column width="40%" style="font-size:15px" }
+
+<img src="/images/Frequency analysis 1.png" />
+<!-- <p>Tradition reconstruction in Faaborg-Midtfyn Konnune</p> -->
+
+<img src="/images/Frequency analysis 2.png"/>
+<!-- <p>Transformation based on the house in house concept</p> -->
+
+<img src="/images/PointNet++.png"/>
+<!-- <p>Transformation based on the house in house concept</p> -->
+
+:::
+
+::: {.column width="60%"}
+<img src="/images/Exploded Room.png"/>
+
+:::
+
+:::
+
+## Example
+
+![](/images/Segmented%20floorplan.png)
+
+
+## Idealised workflow
 
 ![](/images/Structured%20Communication%20and%20Data%20(2).png)
 
----
+
+## Reality
 
 ![](/images/Unstructured%20Communication%20and%20Data%20(2).png)
 
----
 
-![](/images/Point%20Cloud%20Model.png)
+## Web App _(Viewer)_
 
----
+![](/images/Viewer.png){.r-stretch}
 
-![](/images/Viewer.png)
+## Web App _(Viewer)_
 
----
-
-![](/images/Viewer%20with%20menu.png)
+![](/images/Viewer%20with%20menu.png){.r-stretch}
 
 
----
+## Web App _(Report)_
 
-![](/images/Overview.png)
+![](/images/Overview.png){.r-stretch}
 
----
+## Web App _(Report)_
 
-![](/images/Daylight%20Report.png)
+![](/images/Daylight%20Report.png){.r-stretch}
 
----
+## Web App _(Report)_
 
-![](/images/Climate%20Report.png)
+![](/images/Climate%20Report.png){.r-stretch}
 
----
+## Web App _(Report)_
 
-![](/images/Historical%20Report.png)
+![](/images/Historical%20Report.png){.r-stretch}
 
 
 

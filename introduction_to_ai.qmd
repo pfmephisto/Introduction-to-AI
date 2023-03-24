@@ -38,7 +38,7 @@ In machine learning you encounter a lot of acronyms
 ![Neural Networks](/images/Network%20typology%20diagram.png)
 
 
-## Look under the hood {background-color="black" background-image="/images/Starwars C-3PO 3.webp"}
+## Look under the hood {background-color="black" background-image="/images/Starwars C-3PO 3.png"}
 
 ::: footer
 Starwars Episode I, C-3PO
@@ -526,7 +526,7 @@ digraph  G {
 
 
 ## Auto Encoder
-Or what is a le
+Or what is a latent space
 
 ![](/images/Auto%20Encoder.png)
 
@@ -836,11 +836,13 @@ Finch (2021), Finch Weinberg & Dewey
 
 ## Image Kernals
 
+
 ![](/images/Image%20Kernal.png)
 
 ## Image Kernals
 
 ![](/images/Image%20Kernal%20MNIST.png)
+
 
 ## RGB-D
 
@@ -859,28 +861,25 @@ Finch (2021), Finch Weinberg & Dewey
 
 ## Web App _(Viewer)_
 
-![](/images/Viewer.png){.r-stretch}
+:::{.r-stack}
 
-## Web App _(Viewer)_
+![](/images/Viewer.png)
 
-![](/images/Viewer%20with%20menu.png){.r-stretch}
+![](/images/Viewer%20with%20menu.png){.fragment}
 
-
-## Web App _(Report)_
-
-![](/images/Overview.png){.r-stretch}
+:::
 
 ## Web App _(Report)_
 
-![](/images/Daylight%20Report.png){.r-stretch}
-
-## Web App _(Report)_
-
-![](/images/Climate%20Report.png){.r-stretch}
-
-## Web App _(Report)_
-
-![](/images/Historical%20Report.png){.r-stretch}
+:::{.r-stack}
 
 
+![](/images/Overview.png){}
 
+![](/images/Daylight%20Report.png){.fragment}
+
+![](/images/Climate%20Report.png){.fragment}
+
+![](/images/Historical%20Report.png){.fragment}
+
+:::

@@ -58,6 +58,10 @@ $$
 f(x) = y
 $$
 
+$$
+f(x) = Ax^2 + Bx + C
+$$
+
 Or specifically:
 
 $$
@@ -99,6 +103,46 @@ That is data for which we have both the input as well as the result.
 | 3 | 5 |
 | 4 | 4 |
 | 5 | 5 |
+
+## Simple Network
+
+```{dot}
+
+digraph  G { 
+    rankdir=LR;
+    rank=same;
+
+    compound=true
+
+    A [label="input" shape=none]
+    B [label="node" shape=circle] 
+    C [label="result" shape=none]
+
+    A -> B -> C
+
+}
+
+```
+## Simple Network
+```{dot}
+
+digraph  G { 
+    rankdir=LR;
+    rank=same;
+
+    compound=true
+
+    A [label="x" shape=none]
+    B [label="x*h " shape=circle] 
+    C [label="y" shape=none]
+
+    A -> B -> C
+
+}
+
+```
+
+
 
 ---
 
@@ -197,15 +241,6 @@ plt.show()
 
 ```
 
----
-Loss over time
-
-```{python}
-plt.plot(losses, range(len(losses)))
-plt.show()
-```
-
----
 
 ## Simplified
 
@@ -222,7 +257,7 @@ $f(x) = p*x$
 
 What is $p$ ?
 
----
+
 
 ## Loss over $p$
 
@@ -283,12 +318,18 @@ Ex Machina (2014), Ava
 
 # ChatGPT {background-color="black" background-image="/images/Archive 2020 -1 cropped.jpg"}
 
-General Pretrained Transformer (GPT) 
+General Pretrained <u>Transformer</u> (GPT) 
 
 
 ::: footer
 Archive (2020), George Almore & J3
 :::
+
+## 3 Key concepts
+
+- Tokens (Words)
+- Embeddign (Vector)
+- Attention (Mask)
 
 ## Tokens
 
@@ -301,7 +342,7 @@ Archive (2020), George Almore & J3
 
 ---
 
-## Latent Space / Embedding {background-color="black" background-image="/images/Ghost-in-the-Shell-Trailer-Monks.jpg"}
+## Embedding {background-color="black" background-image="/images/Ghost-in-the-Shell-Trailer-Monks.jpg"}
 
 ::: footer
 Ghost in the Shell (2017), Monks
@@ -391,13 +432,18 @@ Terminator
 ![](/images/Attention-weights-are-visualized-on-two-sentences-by-PSRTN_W640.jpg)
 
 
-# Stable Diffusion{background-image="/images/Westworld 5.jpg" background-color="black"}
+# Latent Diffusion{background-image="/images/Westworld 5.jpg" background-color="black"}
+Stable Diffusion, Dall-E,  Midjourney
 
 ::: footer
 Westworld (2016-2022), Intro
 :::
 
-## {background-image="/images/image-46-58.jpg" background-color="black"}
+---
+
+<!-- ## {background-image="/images/image-46-58.jpg" background-color="black"} -->
+
+![](/images/image-46-58.jpg)
 
 Prompt:
 
@@ -407,9 +453,9 @@ Residential home high end futuristic interior, olson kundig::1 Interior Design b
 
 :::
 
----
 
-Stable Diffusion Flow 
+## Latent Diffusion 
+
 
 ```{dot}
 digraph  G { 
@@ -473,9 +519,21 @@ digraph  G {
  } 
 ```
 
----
+## Latent Diffusion 
+
+![](/images/Latent%20Diffusion.png)
+
+
+
+## Auto Encoder
+Or what is a le
 
 ![](/images/Auto%20Encoder.png)
+
+## Stable Diffusion
+
+![](/images/Stable%20Diffusuion.png)
+
 
 # Applications in Practice{background-image="/images/Finch 2021.jpg" background-color="black"}
 
@@ -484,41 +542,66 @@ Finch (2021), Finch Weinberg & Dewey
 :::
 
 
-## Render from Rhino{background-image="/images/Ex Machina 5.jpg"}
+## Render from Rhino
+<!-- {background-image="/images/Ex Machina 5.jpg"} -->
 [Mikkel Steenberg](https://www.linkedin.com/in/mikkelsteenberg/recent-activity/shares/)
 
-::: footer
+<!-- ::: footer
 Ex Machina (2014), Ava
+::: -->
+
+
+:::{.r-stack}
+
+![](/images/Copenhagen%20Rhino%20View.jpg)
+
+![](/images/Copenhagen%20Street.jpg){.fragment}
+
+![](/images/Copenhagen%20Flooded.jpg){.fragment}
+
+![](/images/Copenhagen%20Walking%20Street.jpg){.fragment}
+
 :::
 
----
+<!-- ::: aside
+Screen shot from Rhino -> 
 
-![Screen shot from Rhino](/images/Copenhagen%20Rhino%20View.jpg)
+[Street in Copenhagen, Flooded with water, Walking Street]
+::: -->
 
----
 
-![Street in Copenhagen](/images/Copenhagen%20Street.jpg)
+## ArkoAI {background-iframe="https://arko.ai/rhino3d"}
 
----
+::: {.r-stack}
+![](/images/ArkoAI%20Exterior%20Cube.png){ }
 
-![Flooded with water](/images/Copenhagen%20Flooded.jpg)
+![](/images/ArkoAI%20Exterior%20Detailed.png){.fragment}
 
----
+![](/images/ArkoAI%20Interior.png){.fragment}
 
-![Walking Street](/images/Copenhagen%20Walking%20Street.jpg)
+:::
 
-## Hypar{background-image="/images/Invasion 2020  backdrop-1920.jpg" background-color="black"}
 
+## Sketch to 3D Model
+Nicholas John
+
+<iframe src="https://dms.licdn.com/playlist/C4E05AQGGVutSJ_DiJw/mp4-720p-30fp-crf28/0/1679327160777?e=1680256800&v=beta&t=TVZ1-Fz1LeUCyreVzTDX9gbE2_ABvz99X9YEbyaOfKg" width="100%" height="600px"></iframe> 
+
+
+
+## Hypar
+<!-- ## Hypar{background-image="/images/Invasion 2020  backdrop-1920.jpg" background-color="black"}
 ::: footer
 Invasion (2020), Julia
-:::
-
----
+::: -->
 
 ![](/images/Hypar.png)
 
+## OpenAI GPT 4
 
+<iframe src="https://dms.licdn.com/playlist/C4E05AQGEFeIScwV4fw/mp4-720p-30fp-crf28/0/1678864869549?e=1680256800&v=beta&t=8Tn2TKuiO49ZdYti9a3FPbekDtt7gjiRlNewk_CdlR8" width="100%" height="600 px"></iframe>
 
+<!-- 
 ## InFraReD{background-image="/images/blade-runner-2049-2017-lu.jpg"}
 
 Intelligent Framework for Resilient Design
@@ -537,7 +620,7 @@ Blade Runner (2049), 'K'
 ::: footer
 Blade Runner (2049), 'K' & Rachael
 :::
-
+ -->
 
 # My PhD {background-image="/images/War-Games-Movie-Poster-James-White-Regular-1-cropped.jpg" background-color="black"}
 Promoting the reuse of vacant buildings \
@@ -547,7 +630,7 @@ using machine learing
 WarGames (1983), David
 :::
 
----
+## Introduction
 
 Started : 01.12.2021
 
@@ -751,14 +834,27 @@ Finch (2021), Finch Weinberg & Dewey
 ![](/images/Segmented%20floorplan.png)
 
 
-## Idealised workflow
+## Image Kernals
 
-![](/images/Structured%20Communication%20and%20Data%20(2).png)
+![](/images/Image%20Kernal.png)
+
+## Image Kernals
+
+![](/images/Image%20Kernal%20MNIST.png)
+
+## RGB-D
+
+![](/images/NYU%20Depth%20v2.jpg)
 
 
-## Reality
+## Workflow
 
-![](/images/Unstructured%20Communication%20and%20Data%20(2).png)
+![Idealised](/images/Structured%20Communication%20and%20Data%20(2).png)
+
+
+## Workflow
+
+![Reality](/images/Unstructured%20Communication%20and%20Data%20(2).png)
 
 
 ## Web App _(Viewer)_
